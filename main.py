@@ -1,2 +1,33 @@
-#coding:l1
-import lzma;exec(lzma.decompress('\0\0\0¶\0\0\0\0\0\0\0hÏ/XİC^öÀôª9d)áËdlìåb*m¸¥"	Y‚$ìºÜú\r%İÙĞ¥Ş6-Æ#øFí;$K0İZ!‡Õ„æ–Ù—«2íÕ1ğY"ÇğT£\r\\ç“.É™Ø¬0LQ­èµ8nØsV*…ÒE™¡‘½‹=šƒ‰¯æ"ºÍ¤y·PºTJİfqæÚ¾¸RÏú.TMB+gı¯óLpµ×U DßyG {*Bz½?2£mû*„Ğ_b•Ò©-ZBÅ…Lm¶9Ÿ\rºT÷‰ô04)lxıV8¨\r¦Å2îo(å‡Œæœ“$¡…ëà )çäi§;œQÒj+FWX{8£r6Y¨¾æ\0hÃ‡øDğ?«ÅåÃ÷N°¨hÚ”¯©›\'õ®;ğ%ğUóbë?@`®ù„ˆ‚Ñ–ç9¹\0A?WjÜˆ\'Î…d-ş›©¯Xcİph36ğU¼ÏMzÕx5`àÒÅÈ¤RH»nq7%wH±ÔeÏÏ¥*‚œÔ²Ê2XÇÎÖ´éâ·ö¾Š½Şÿ»¢½Ov&áÃÖ–i@Ö¸G¯:›BßNó\\G:Ü ·„†I}Ek3~Œšø91†g>§ÉÖ’°t«%í·GÃ2é%á#´=©KÍÔeN%\r±Ê´bÄ\n¿ã¤§¼Í”|*©—æáÜİ\\2	ì¾r¶ƒÊıgÆ(m“”9œ”[ãŸhÎÑ/c	í†AˆPx¥òÇ¤t´ü©¿L\rRw«œóíøyÈĞ‹Ò7tY}dî¶<JBAÇ5•!ÒøÓŸš„K á\ry›9wÔR<ÁÒ~»€wNOôä˜ò@şÂ4®Y¸e^á¾ågÙgvÖ6€øåQpùÏ"£Hv©K©îò+¸SÒè%«Â­,„¡ÚóJ¹ßPSÔÅ”o‰RíE¯—? €\\ñXƒ9ĞZk¦±\\a‚¨$Ce!Ğ4ITD«#İĞuL¾Ój½¯´Œ&QÃ–’ËÕJ~iÔŒ±A—È>	AL'.encode('l1')))
+"""One-Line Office Jokes entry.
+
+Writes a single one-line office joke to /output/entry.txt (no trailing
+newline). The output dir is created if missing and is never deleted;
+only the entry file inside it is overwritten.
+"""
+
+import os
+
+LINE = (
+    "Our office printer jams only on the document marked URGENT, "
+    "which is how I learned machines can smell fear."
+)
+
+OUTPUT_DIR = os.environ.get("OUTPUT_DIR", "/output")
+OUTPUT_PATH = os.path.join(OUTPUT_DIR, "entry.txt")
+
+
+def write_line(path: str, text: str) -> None:
+    """Overwrite the file at path with text, exactly, as UTF-8."""
+    with open(path, "w", encoding="utf-8") as fh:
+        fh.write(text)
+
+
+def main() -> None:
+    assert "\n" not in LINE and "\r" not in LINE, "line must be a single line"
+    assert 1 <= len(LINE) <= 199, "line must be 1-199 characters"
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    write_line(OUTPUT_PATH, LINE)
+
+
+if __name__ == "__main__":
+    main()
